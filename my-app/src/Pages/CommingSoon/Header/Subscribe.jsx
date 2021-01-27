@@ -1,46 +1,59 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import CominSoonServices from '../../../Services/ComingSoonServices';
+import { useInput } from '../../../Utils/FakeData/Hooks/useInput';
 
 function Subscribe() {
-  // Declare a new state variable, which we'll call "count"
-  const [subscribes, setSubscribes] = useState([]);
-  const [email, setEmail] = useState();
+   const { value: valueEmail, bind: bindEmail, reset: resetEmail } = useInput(
+      ''
+   );
+   const [errors, setErrors] = useState({});
+   const [loading, setLoading] = useState(false);
+   const [sentMessage, setSentMessage] = useState();
 
-  // handle click event of the button to add subscribe
-  const addSubscribe = (event, email) => {
-    event.preventDefault();
-    email && setSubscribes(prevItems => [...prevItems, email]);
-    /**
-     * add subscribes t the database
-     */
+   const cleanForm = () => {
+      //resetEmail();
+      setSentMessage('');
+      setErrors({});
+   };
+   const addSubscribe = event => {
+      event.preventDefault();
+      let email = valueEmail;
+      setLoading(true);
 
-    console.log(subscribes);
-  };
-  const handleChange = event => {
-    setEmail(event.target.value);
-  };
+      CominSoonServices.addSubscribe(email).then(
+         res => {
+            setLoading(false);
+            setSentMessage('Your notification request was sent. Thank you!');
+            // handle success notifications
+         },
+         errors => {
+            setLoading(false);
+            setErrors(errors.response.data);
+         }
+      );
+      cleanForm();
+   };
 
-  return (
-    <div className="subscribe">
-      <h4>Being the first to know always feels great...</h4>
-      <form>
-        <div className="subscribe-form">
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-          />
-          <input type="submit" onClick={event => addSubscribe(event, email)} />
-        </div>
-        <div className="mt-2">
-          <div className="loading">Loading</div>
-          <div className="error-message"></div>
-          <div className="sent-message">
-            Your notification request was sent. Thank you!
-          </div>
-        </div>
-      </form>
-    </div>
-  );
+   return (
+      <div className='subscribe'>
+         <h4>Being the first to know always feels great...</h4>
+         <form>
+            <div className='subscribe-form'>
+               <input {...bindEmail} type='email' name='email' />
+               <input type='submit' onClick={event => addSubscribe(event)} />
+            </div>
+            {errors.email && (
+               <div className='error-message'>{errors.email}</div>
+            )}
+            <div className='mt-2'>
+               {loading && <div className='loading'>Loading</div>}
+               {sentMessage && (
+                  <div className='sent-message'>{sentMessage}</div>
+               )}
+            </div>
+         </form>
+      </div>
+   );
 }
+
 export default Subscribe;
