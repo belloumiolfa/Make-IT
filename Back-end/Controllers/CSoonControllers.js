@@ -14,6 +14,7 @@ import Subscribe from '../Models/Subscribe.js';
 import SubscribeValidator from '../Validators/ComingSoon/SubscribeValidator.js';
 import ContactValidator from '../Validators/ComingSoon/ContactValidator.js';
 import Contact from '../Models/Contact.js';
+import sendConfirmationEmail from './mailer.js';
 
 const router = express.Router();
 router.use(bodyParser.json());
@@ -104,6 +105,7 @@ router.post('/addContact', async (req, res) => {
       .save(contact)
       .then(data => {
          res.send(data);
+         sendConfirmationEmail(contact);
       })
       .catch(err => {
          res.status(500).send(

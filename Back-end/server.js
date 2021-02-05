@@ -30,6 +30,7 @@ app.use(passport.initialize());*/
 /**
  * Passport Config
 require('./passport')(passport);*/
+
 /**
  * connect with front
  */
