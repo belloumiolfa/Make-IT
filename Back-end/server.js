@@ -5,7 +5,7 @@ import _ from 'lodash';
 import express from 'express';
 import bodyParser from 'body-parser';
 import colors from 'colors';
-
+import path from 'path';
 //import  passport from 'passport';
 
 import connectDB from './config.js';
@@ -17,7 +17,16 @@ import router from './Controllers/CSoonControllers.js';
 
 dotenv.config();
 connectDB();
-const port = process.env.PORT;
+
+// Server static assets if in production
+if (process.env.NODE_ENV === 'production') {
+   //set static folder
+   app.use(express.static('my-app/build'));
+   app.get('*', (res, req) => {
+      res.sendFile(path.resolve(__dirname, 'my-app', 'build', 'index.html'));
+   });
+}
+const port = process.env.PORT || 5000;
 var app = express();
 
 app.use(cors());

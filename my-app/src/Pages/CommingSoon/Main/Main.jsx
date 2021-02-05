@@ -21,7 +21,7 @@ const Main = () => {
                         <li>
                            <i className='icofont-check'></i>{' '}
                            <p className='text-justify'>
-                              we combine the best parts of the business
+                              We combine the best parts of the business
                               consulting, a creative eye, and the engineering to
                               deliver outstanding work.
                            </p>
@@ -29,14 +29,14 @@ const Main = () => {
                         <li>
                            <i className='icofont-check'></i>{' '}
                            <p className='text-justify'>
-                              we are one of the few UI / UX designers and brand
+                              We are one of the few UI / UX designers and brand
                               developers who can take a project from an initial
                               idea to a finished product and beyond.
                            </p>
                         </li>
                      </ul>
                      <p className='font-italic text-justify'>
-                        A complete design creator. we offer a wide range of
+                        A complete design agency. We offer a wide range of
                         professional bespoke design solutions, from branding
                         design and illustration to website and app.
                      </p>
