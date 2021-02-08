@@ -4,7 +4,7 @@ mongoose.Promise = global.Promise;
 
 const connectDB = async () => {
    try {
-      const conn = await mongoose.connect('mongodb://localhost:27017/makeit', {
+      const conn = await mongoose.connect(process.env.MONGODB_URL, {
          userUnifiedTopology: true,
          useNewUrlParser: true,
          userCreateIndex: true,
