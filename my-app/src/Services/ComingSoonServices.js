@@ -1,5 +1,5 @@
 import axios from 'axios';
-const APT_url = 'https://coming-soon-make-it.herokuapp.com/comingSoon';
+const APT_url = 'http://localhost:5000/comingSoon';
 
 const CominSoonServices = {
    addSubscribe,

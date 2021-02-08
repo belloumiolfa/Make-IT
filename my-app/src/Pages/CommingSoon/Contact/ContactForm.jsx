@@ -49,6 +49,7 @@ function ContactForm() {
          errors => {
             setLoading(false);
             setErrors(errors.response.data);
+            console.log(errors);
          }
       );
    };
