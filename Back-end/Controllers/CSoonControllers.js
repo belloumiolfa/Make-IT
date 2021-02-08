@@ -105,7 +105,14 @@ router.post('/addContact', async (req, res) => {
       .save(contact)
       .then(data => {
          res.send(data);
-         sendConfirmationEmail(contact);
+         try {
+            sendConfirmationEmail(contact);
+         } catch {
+            error => {
+               res.status(error.response.status);
+               return res.send(error.message);
+            };
+         }
       })
       .catch(err => {
          res.status(500).send(
