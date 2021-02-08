@@ -14,7 +14,7 @@ const sendConfirmationEmail = contact => {
    const tranport = SetUpMail();
 
    const email = {
-      from: process.env.GMAIL_USER,
+      from: contact.email,
       to: 'cf.makeit@gmail.com',
       subject: contact.subject,
       html: ` Name:${contact.name} <br/> email: ${contact.email} <br/> ${contact.message}`,
