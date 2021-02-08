@@ -26,8 +26,8 @@ var app = express();
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
    //set static folder
-   app.use(express.static(path.join(__dirname, 'my-app/build')));
-   app.get('*', (res, req) => {
+   app.use(express.static(path.join(__dirname, '/my-app/build')));
+   app.get('*', (req, res) => {
       res.sendFile(path.resolve(__dirname, 'my-app', 'build', 'index.html'));
    });
 } else {
